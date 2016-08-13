@@ -23,17 +23,25 @@ values."
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     auto-completion
+     (auto-completion :variables
+                      auto-completion-enable-snippets-in-popup t)
      better-defaults
      emacs-lisp
      haskell
-     ;; chinese
+     chinese
      python
      frame-geometry
      intero
      ;; syntax-checking
      git
      markdown
+     yaml
+     rust
+     (shell :variables
+             shell-default-shell 'eshell
+             shell-enable-smart-eshell t)
+     scheme
+     racket
      ;; org
      ;; (shell :variables
      ;;        shell-default-height 30
@@ -94,7 +102,7 @@ values."
    dotspacemacs-startup-lists '(recents projects)
    ;; Number of recent files to show in the startup buffer. Ignored if
    ;; `dotspacemacs-startup-lists' doesn't include `recents'. (default 5)
-   dotspacemacs-startup-recent-list-size 5
+   dotspacemacs-startup-recent-list-size 10
    ;; Default major mode of the scratch buffer (default `text-mode')
    dotspacemacs-scratch-mode 'text-mode
    ;; List of themes, the first of the list is loaded when spacemacs starts.
@@ -221,11 +229,11 @@ values."
    dotspacemacs-highlight-delimiters 'all
    ;; If non nil advises quit functions to keep server open when quitting.
    ;; (default nil)
-   dotspacemacs-persistent-server nil
+   dotspacemacs-persistent-server t
    ;; List of search tool executable names. Spacemacs uses the first installed
    ;; tool of the list. Supported tools are `ag', `pt', `ack' and `grep'.
    ;; (default '("ag" "pt" "ack" "grep"))
-   dotspacemacs-search-tools '("ag" "pt" "ack" "grep")
+   dotspacemacs-search-tools '("pt" "ag" "ack" "grep")
    ;; The default package repository used if no explicit repository has been
    ;; specified with an installed package.
    ;; Not used for now. (default nil)
@@ -249,7 +257,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
     '(("melpa-cn" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
       ("org-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
       ("gnu-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")))
-  ;; (spacemacs//set-monospaced-font "Inziu Iosevka CL" "Inziu Iosevka CL"   17 18)
+  (setq powerline-default-separator 'arrow)
   )
 
 (defun dotspacemacs/user-config ()
@@ -259,13 +267,14 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  (spacemacs//set-monospaced-font "Inziu Iosevka CL" "Inziu Iosevka CL" 17 17)
   ;; (setq url-proxy-services
   ;;       '(("http" . "127.0.0.1:1080")
   ;;         ("https" . "127.0.0.1:1080")
   ;;         ("ftp" . "127.0.0.1:1080")
   ;;         ("no_proxy" . "^127\\.0\\.0\\.1.*")))
-  ;; (setenv "PATH" (concat (getenv "PATH") ";C:\\Program Files\\Git\\usr\\bin"))
-  ;; (setq exec-path "C:\\Program Files\\Git\\usr\\bin")
+  (setenv "PATH" (concat (getenv "PATH") ";C:\\Program Files\\Racket"))
+  (setq exec-path (append exec-path '("C:/Program Files/Racket")))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -277,7 +286,8 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (smeargle orgit mmm-mode markdown-toc markdown-mode magit-gitflow helm-gitignore request gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger gh-md flycheck-pos-tip evil-magit magit magit-popup git-commit with-editor intero flycheck shm pyvenv pytest pyenv-mode py-yapf pip-requirements pangu-spacing hy-mode hindent helm-pydoc helm-company helm-c-yasnippet haskell-snippets find-by-pinyin-dired cython-mode company-statistics company-quickhelp company-ghc ghc haskell-mode company-cabal company-anaconda company cmm-mode chinese-pyim chinese-pyim-basedict pos-tip auto-yasnippet yasnippet anaconda-mode pythonic f ace-pinyin pinyinlib ac-ispell ace-jump-mode auto-complete ws-butler window-numbering which-key volatile-highlights vi-tilde-fringe use-package spacemacs-theme spaceline smooth-scrolling restart-emacs rainbow-delimiters quelpa popwin persp-mode pcre2el paradox page-break-lines open-junk-file neotree move-text macrostep lorem-ipsum linum-relative leuven-theme info+ indent-guide ido-vertical-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-args evil-anzu eval-sexp-fu elisp-slime-nav define-word clean-aindent-mode buffer-move bracketed-paste auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
+    (smeargle orgit mmm-mode markdown-toc markdown-mode magit-gitflow helm-gitignore request gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger gh-md flycheck-pos-tip evil-magit magit magit-popup git-commit with-editor intero flycheck shm pyvenv pytest pyenv-mode py-yapf pip-requirements pangu-spacing hy-mode hindent helm-pydoc helm-company helm-c-yasnippet haskell-snippets find-by-pinyin-dired cython-mode company-statistics company-quickhelp company-ghc ghc haskell-mode company-cabal company-anaconda company cmm-mode chinese-pyim chinese-pyim-basedict pos-tip auto-yasnippet yasnippet anaconda-mode pythonic f ace-pinyin pinyinlib ac-ispell ace-jump-mode auto-complete ws-butler window-numbering which-key volatile-highlights vi-tilde-fringe use-package spacemacs-theme spaceline smooth-scrolling restart-emacs rainbow-delimiters quelpa popwin persp-mode pcre2el paradox page-break-lines open-junk-file neotree move-text macrostep lorem-ipsum linum-relative leuven-theme info+ indent-guide ido-vertical-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-args evil-anzu eval-sexp-fu elisp-slime-nav define-word clean-aindent-mode buffer-move bracketed-paste auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line)))
+ '(paradox-github-token t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
