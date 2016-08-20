@@ -42,6 +42,9 @@ values."
              shell-enable-smart-eshell t)
      scheme
      racket
+     (ibuffer :variables ibuffer-group-buffers-by 'projects)
+     colors
+     ranger
      ;; org
      ;; (shell :variables
      ;;        shell-default-height 30
@@ -268,11 +271,11 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   (spacemacs//set-monospaced-font "Inziu Iosevka CL" "Inziu Iosevka CL" 17 17)
-  ;; (setq url-proxy-services
-  ;;       '(("http" . "127.0.0.1:1080")
-  ;;         ("https" . "127.0.0.1:1080")
-  ;;         ("ftp" . "127.0.0.1:1080")
-  ;;         ("no_proxy" . "^127\\.0\\.0\\.1.*")))
+  (setq url-proxy-services
+        '(("http" . "127.0.0.1:1080")
+          ("https" . "127.0.0.1:1080")
+          ("ftp" . "127.0.0.1:1080")
+          ("no_proxy" . "^(127\\.0\\.0\\.1.*)|(.*\\.tuna\\..*)")))
   (setenv "PATH" (concat (getenv "PATH") ";C:\\Program Files\\Racket"))
   (setq exec-path (append exec-path '("C:/Program Files/Racket")))
   )
